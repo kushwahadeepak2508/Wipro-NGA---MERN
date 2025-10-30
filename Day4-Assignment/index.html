@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posts & Todos - Fetch API </title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .sections {
+            display: flex;
+            gap: 20px;
+        }
+
+        .section {
+            flex: 1;
+        }
+
+        h2 {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #007bff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+
+        .post {
+            background-color: white;
+            padding: 12px;
+            margin-bottom: 12px;
+            border-left: 4px solid #007bff;
+        }
+
+        .post h3 {
+            color: #007bff;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .post p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .post-id {
+            color: #999;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        .todo {
+            background-color: white;
+            padding: 10px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .todo input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .todo label {
+            flex: 1;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .todo input[type="checkbox"]:checked + label {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .todo-id {
+            color: #999;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Posts & Todos App</h1>
+
+        <div class="sections">
+            <!-- Posts Section -->
+            <div class="section">
+                <h2>Posts</h2>
+                <div id="postsContainer">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>Loading posts...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Todos Section -->
+            <div class="section">
+                <h2>Todos</h2>
+                <div id="todosContainer">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>Loading todos...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== MODULE PATTERN =====
+        // This is a design pattern that keeps code organized and private
+
+        const APIModule = (function() {
+            // PRIVATE VARIABLES - Only used inside this module
+            const POSTS_URL = 'https://jsonplaceholder.typicode.com/posts';
+            const TODOS_URL = 'https://jsonplaceholder.typicode.com/todos';
+
+            // PRIVATE FUNCTION - Fetches data from an API
+            function fetchData(url) {
+                return fetch(url)
+                    .then(response => {
+                    
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .catch(error => {
+                        console.error('Fetch error:', error);
+                        throw error;
+                    });
+            }
+
+            // PUBLIC METHODS - Can be called from outside
+            return {
+                // Get all posts
+                getPosts: function() {
+                    return fetchData(POSTS_URL);
+                },
+
+                // Get all todos
+                getTodos: function() {
+                    return fetchData(TODOS_URL);
+                }
+            };
+        })();
+
+        // ===== DOM MODULE =====
+        // This module handles displaying data on the page
+
+        const DOMModule = (function() {
+            // PRIVATE FUNCTION - Create a post HTML element
+            function createPostElement(post) {
+                const postDiv = document.createElement('div');
+                postDiv.className = 'post';
+                postDiv.innerHTML = `
+                    <h3>${post.title}</h3>
+                    <p>${post.body}</p>
+                    <div class="post-id">Post ID: ${post.id}</div>
+                `;
+                return postDiv;
+            }
+
+            // PRIVATE FUNCTION - Create a todo HTML element
+            function createTodoElement(todo) {
+                const todoDiv = document.createElement('div');
+                todoDiv.className = 'todo';
+                todoDiv.innerHTML = `
+                    <input type="checkbox" id="todo-${todo.id}" ${todo.completed ? 'checked' : ''}>
+                    <label for="todo-${todo.id}">${todo.title}</label>
+                    <span class="todo-id">#${todo.id}</span>
+                `;
+                return todoDiv;
+            }
+
+            // PRIVATE FUNCTION - Show error message
+            function showError(containerId, message) {
+                const container = document.getElementById(containerId);
+                container.innerHTML = `
+                    <div class="error">
+                        <strong>Error:</strong> ${message}
+                    </div>
+                `;
+            }
+
+            // PUBLIC METHODS
+            return {
+                // Display posts on the page
+                displayPosts: function(posts) {
+                    const container = document.getElementById('postsContainer');
+                    container.innerHTML = ''; // Clear loading spinner
+
+                    // Loop through each post and add it to the page
+                    posts.forEach(post => {
+                        container.appendChild(createPostElement(post));
+                    });
+                },
+
+                // Display todos on the page
+                displayTodos: function(todos) {
+                    const container = document.getElementById('todosContainer');
+                    container.innerHTML = ''; // Clear loading spinner
+
+                    // Loop through each todo and add it to the page
+                    todos.forEach(todo => {
+                        container.appendChild(createTodoElement(todo));
+                    });
+                },
+
+                // Show error for posts
+                showPostsError: function(message) {
+                    showError('postsContainer', message);
+                },
+
+                // Show error for todos
+                showTodosError: function(message) {
+                    showError('todosContainer', message);
+                }
+            };
+        })();
+
+        // ===== APP INITIALIZATION =====
+        // This runs when the page loads
+
+        // Fetch and display posts
+        APIModule.getPosts()
+            .then(posts => {
+                // Success - show the posts
+                DOMModule.displayPosts(posts);
+            })
+            .catch(error => {
+                // Error - show error message
+                DOMModule.showPostsError('Failed to load posts. Please check your internet connection.');
+            });
+
+        // Fetch and display todos
+        APIModule.getTodos()
+            .then(todos => {
+                // Success - show the todos
+                DOMModule.displayTodos(todos);
+            })
+            .catch(error => {
+                // Error - show error message
+                DOMModule.showTodosError('Failed to load todos. Please check your internet connection.');
+            });
+    </script>
+</body>
+</html>
