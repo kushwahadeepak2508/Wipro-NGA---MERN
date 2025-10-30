@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Flowers School</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">🎓 Spring Flowers School</div>
+            <ul class="nav-menu">
+                <li><a href="#" onclick="showPage('home')">Home</a></li>
+                <li><a href="#" onclick="showPage('profile')">Student Profile</a></li>
+                <li><a href="#" onclick="showPage('timetable')">TimeTable</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <div class="hero">
+            <h1>Welcome to Spring Flowers School</h1>
+            <p>Student Management Portal</p>
+        </div>
+
+        <div class="container">
+            <div class="cards-container">
+                <div class="card">
+                    <h3>👤 Student Profile</h3>
+                    <p>View your personal information</p>
+                    <button class="btn btn-primary" onclick="showPage('profile')">View Profile</button>
+                </div>
+
+                <div class="card">
+                    <h3>📅 TimeTable</h3>
+                    <p>Check your class schedule</p>
+                    <button class="btn btn-primary" onclick="showPage('timetable')">View TimeTable</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Student Profile Page -->
+    <div id="profile" class="page">
+        <div class="container">
+            <h2>Student Profile</h2>
+            <div class="profile-box">
+                <div class="profile-item">
+                    <strong>Name:</strong> Ajay
+                </div>
+                <div class="profile-item">
+                    <strong>Student ID:</strong> S001
+                </div>
+                <div class="profile-item">
+                    <strong>Class:</strong> 10-A
+                </div>
+                <div class="profile-item">
+                    <strong>Date of Birth:</strong> 15 March 2009
+                </div>
+                <div class="profile-item">
+                    <strong>Email:</strong> ajay@spring.edu
+                </div>
+                <div class="profile-item">
+                    <strong>Phone:</strong> 9876543210
+                </div>
+                <div class="profile-item">
+                    <strong>Address:</strong> 123 Learning City
+                </div>
+            </div>
+            <button class="btn btn-primary" onclick="showPage('home')">Back to Home</button>
+        </div>
+    </div>
+
+    <!-- TimeTable Page -->
+    <div id="timetable" class="page">
+        <div class="container">
+            <h2>📅 Weekly TimeTable - Class 10-A</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="table-primary">
+                        <tr>
+                            <th>Time</th>
+                            <th>Monday</th>
+                            <th>Tuesday</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>9:00 - 10:00</strong></td>
+                            <td><span class="badge bg-primary">Mathematics</span></td>
+                            <td><span class="badge bg-primary">English</span></td>
+                            <td><span class="badge bg-primary">Science</span></td>
+                            <td><span class="badge bg-primary">History</span></td>
+                            <td><span class="badge bg-primary">Geography</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>10:15 - 11:15</strong></td>
+                            <td><span class="badge bg-success">English</span></td>
+                            <td><span class="badge bg-success">Mathematics</span></td>
+                            <td><span class="badge bg-success">Computer Science</span></td>
+                            <td><span class="badge bg-success">Physics</span></td>
+                            <td><span class="badge bg-success">Chemistry</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>11:30 - 12:30</strong></td>
+                            <td><span class="badge bg-warning">Science</span></td>
+                            <td><span class="badge bg-warning">History</span></td>
+                            <td><span class="badge bg-warning">Mathematics</span></td>
+                            <td><span class="badge bg-warning">English</span></td>
+                            <td><span class="badge bg-warning">PE</span></td>
+                        </tr>
+                        <tr class="table-light">
+                            <td colspan="6" style="text-align: center; font-weight: bold;">🍽️ LUNCH BREAK</td>
+                        </tr>
+                        <tr>
+                            <td><strong>1:30 - 2:30</strong></td>
+                            <td><span class="badge bg-info">Computer Science</span></td>
+                            <td><span class="badge bg-info">Geography</span></td>
+                            <td><span class="badge bg-info">English</span></td>
+                            <td><span class="badge bg-info">Computer Science</span></td>
+                            <td><span class="badge bg-info">Art</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>2:45 - 3:45</strong></td>
+                            <td><span class="badge bg-danger">PE</span></td>
+                            <td><span class="badge bg-danger">Chemistry</span></td>
+                            <td><span class="badge bg-danger">History</span></td>
+                            <td><span class="badge bg-danger">Geography</span></td>
+                            <td><span class="badge bg-danger">Mathematics</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <button class="btn btn-primary" onclick="showPage('home')">Back to Home</button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Spring Flowers School. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
