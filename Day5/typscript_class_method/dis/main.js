@@ -16,16 +16,28 @@
 // console.log("Name of person1 is: "+person1.name);
 import { Person, Student } from "./person.js";
 const outputDiv = document.getElementById("output");
-function print(msg) {
-    outputDiv.innerHTML += msg + "<br>";
-}
 let student1 = new Student("Vishwas", 23, "Wipro", ["MERN", "JAVA"]);
-print(student1.getstudentInfo());
+outputDiv.innerHTML += student1.getstudentInfo() + "<br>";
 student1.addCourse("Full Stack Development");
-print(student1.getstudentInfo());
-print("Total Persons Created: " + Student.getCounter());
-let person1 = new Person("Vishwas", 23, "SVIT");
-print(person1.greet());
-print("Age of person1 is: " + person1.getAge());
-print("Id of person1 is: " + person1.showId());
-print("Name of person1 is: " + person1.name);
+outputDiv.innerHTML += student1.getstudentInfo() + "<br>";
+outputDiv.innerHTML += "Total Persons Created: " + Student.getCounter() + "<br>";
+let person1 = new Person("Voshwas", 23, "SVIT");
+outputDiv.innerHTML += person1.greet() + "<br>";
+outputDiv.innerHTML += "Age: " + person1.getAge() + "<br>";
+outputDiv.innerHTML += "ID: " + person1.showId() + "<br>";
+outputDiv.innerHTML += "Name: " + person1.name + "<br>";
+// import { Person, Student } from "./person.js";
+// const outputDiv = document.getElementById("output") as HTMLElement;
+// function print(msg: string) {
+//     outputDiv.innerHTML += msg + "<br>";
+// }
+// let student1 = new Student("Vishwas", 23, "Wipro", ["MERN", "JAVA"]);
+// print(student1.getstudentInfo());
+// student1.addCourse("Full Stack Development");
+// print(student1.getstudentInfo());
+// print("Total Persons Created: " + Student.getCounter());
+// let person1 = new Person("Vishwas", 23, "SVIT");
+// print(person1.greet());
+// print("Age of person1 is: " + person1.getAge());
+// print("Id of person1 is: " + person1.showId());
+// print("Name of person1 is: " + person1.name);

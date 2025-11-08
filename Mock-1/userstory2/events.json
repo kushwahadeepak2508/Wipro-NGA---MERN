@@ -1,0 +1,68 @@
+{
+  "events": [
+    {
+      "id": 1,
+      "title": "Web Development Workshop",
+      "category": "Technology",
+      "date": "2025-11-15",
+      "location": "Tech Hub Downtown",
+      "description": "Learn modern web development techniques with hands-on projects."
+    },
+    {
+      "id": 2,
+      "title": "Business Networking Event",
+      "category": "Business",
+      "date": "2025-11-18",
+      "location": "Conference Center",
+      "description": "Connect with industry leaders and expand your professional network."
+    },
+    {
+      "id": 3,
+      "title": "AI & Machine Learning Seminar",
+      "category": "Technology",
+      "date": "2025-11-20",
+      "location": "Innovation Lab",
+      "description": "Explore the latest advancements in AI and machine learning applications."
+    },
+    {
+      "id": 4,
+      "title": "Marketing Strategy Workshop",
+      "category": "Business",
+      "date": "2025-11-22",
+      "location": "Business Plaza",
+      "description": "Master digital marketing strategies and growth hacking techniques."
+    },
+    {
+      "id": 5,
+      "title": "Yoga & Wellness Session",
+      "category": "Health",
+      "date": "2025-11-25",
+      "location": "Wellness Center",
+      "description": "Join us for a relaxing yoga session and wellness workshop."
+    },
+    {
+      "id": 6,
+      "title": "Cloud Computing Bootcamp",
+      "category": "Technology",
+      "date": "2025-11-28",
+      "location": "Tech Hub Downtown",
+      "description": "Intensive bootcamp covering AWS, Azure, and Google Cloud platforms."
+    },
+    {
+      "id": 7,
+      "title": "Startup Pitch Event",
+      "category": "Business",
+      "date": "2025-12-01",
+      "location": "Innovation Lab",
+      "description": "Watch promising startups pitch their ideas to potential investors."
+    },
+    {
+      "id": 8,
+      "title": "Fitness Challenge",
+      "category": "Health",
+      "date": "2025-12-05",
+      "location": "Sports Complex",
+      "description": "30-day fitness challenge with training sessions and community support."
+    }
+  ]
+}

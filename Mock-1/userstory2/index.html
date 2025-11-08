@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events Dashboard</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 5px;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .filters {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    select, button {
+      padding: 8px 12px;
+      font-size: 14px;
+      margin-right: 10px;
+    }
+
+    select {
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .events-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .event-card {
+      border: 1px solid #ddd;
+      padding: 15px;
+      background-color: #fafafa;
+      border-radius: 5px;
+    }
+
+    .event-card h3 {
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .event-card p {
+      color: #666;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    .category-badge {
+      display: inline-block;
+      background-color: #007bff;
+      color: white;
+      padding: 3px 8px;
+      border-radius: 3px;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    .no-events {
+      text-align: center;
+      color: #666;
+      padding: 20px;
+    }
+
+    .loading {
+      text-align: center;
+      color: #666;
+    }
+
+    .error {
+      background-color: #f8d7da;
+      color: #721c24;
+      padding: 10px;
+      margin-bottom: 15px;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Events Dashboard</h1>
+
+    <!-- Filter Section -->
+    <div class="filters">
+      <label for="categoryFilter">Filter by Category:</label>
+      <select id="categoryFilter">
+        <option value="">All Categories</option>
+      </select>
+      <button id="resetBtn">Reset</button>
+    </div>
+
+    <!-- Error Message -->
+    <div id="errorContainer"></div>
+
+    <!-- Loading Message -->
+    <div id="loadingContainer" class="loading">Loading events...</div>
+
+    <!-- Events Display -->
+    <div class="events-container" id="eventsContainer"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

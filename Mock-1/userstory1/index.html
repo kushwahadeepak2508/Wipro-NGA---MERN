@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Management</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding-top: 60px;
+    }
+    header {
+      background-color: #333;
+      color: white;
+      padding: 20px 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 100;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+    }
+    nav a:hover {
+      color: #ffc107;
+    }
+    section {
+      padding: 40px 20px;
+    }
+    footer {
+      background-color: #333;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header & Navigation -->
+  <header>
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1 style="margin: 0; font-size: 24px;">Event Management</h1>
+        <nav>
+          <a href="#events">Events</a>
+          <a href="#highlights">Highlights</a>
+          <a href="#register">Register</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container">
+
+    <!-- Featured Events Carousel -->
+    <section id="events">
+      <h2>Featured Events</h2>
+      <div id="eventCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="https://media.slidesgo.com/storage/21918504/responsive-images/0-tech-business-conference___media_library_original_384_216.jpg?height=300&width=800" class="d-block w-100" alt="Tech Conference">
+            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 p-3">
+              <h5>Tech Conference</h5>
+              <p>November 02-03, 2025</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="https://almashines.s3.dualstack.ap-southeast-1.amazonaws.com/assets/images/eventlogos/sizea/36176231726652028.jpg?height=300&width=800" class="d-block w-100" alt="Workshop">
+            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 p-3">
+              <h5>Web Development Workshop</h5>
+              <p>November 10-12, 2025</p>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#eventCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#eventCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Event Highlights - Cards -->
+    <section id="highlights" class="bg-light py-5">
+      <h2 class="mb-4">Upcoming Events</h2>
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Test Event</h5>
+              <p class="card-text">Meeting regarding event.</p>
+              <p><strong>Date:</strong> December 02, 2025</p>
+              <p><strong>Price:</strong> $50</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Product Launch</h5>
+              <p class="card-text">launch of our new innovative products.</p>
+              <p><strong>Date:</strong> December 08, 2025</p>
+              <p><strong>Price:</strong> $75</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Registration Form -->
+    <section id="register" class="py-5">
+      <h2 class="mb-4">Event Registration</h2>
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <form id="registrationForm" novalidate>
+            <div class="mb-3">
+              <label for="fullName" class="form-label">Full Name</label>
+              <input type="text" class="form-control" id="fullName" required>
+              <div class="invalid-feedback">Full name is required.</div>
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" id="email" required>
+              <div class="invalid-feedback">Please enter a valid email.</div>
+            </div>
+
+            <div class="mb-3">
+              <label for="phone" class="form-label">Phone Number</label>
+              <input type="tel" class="form-control" id="phone" pattern="[0-9\-\+$$$$\s]{10,}" required>
+              <div class="invalid-feedback">Please enter a valid phone number.</div>
+            </div>
+
+            <div class="mb-3">
+              <label for="eventSelect" class="form-label">Select Event</label>
+              <select class="form-select" id="eventSelect" required>
+                <option selected disabled value="">Choose an event...</option>
+                <option>Tech Conference 2025</option>
+                <option>Web Development Workshop</option>
+                <option>Test Event</option>
+                <option>Product Launch</option>
+              </select>
+              <div class="invalid-feedback">Please select an event.</div>
+            </div>
+
+            <div class="mb-3 form-check">
+              <input type="checkbox" class="form-check-input" id="terms" required>
+              <label class="form-check-label" for="terms">
+                I agree to the terms and conditions
+              </label>
+              <div class="invalid-feedback">You must agree before submitting.</div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Register Now</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Event Management Company. All rights reserved.</p>
+  </footer>
+
+  <!-- Bootstrap JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Form Validation -->
+  <script>
+    const form = document.getElementById('registrationForm');
+    
+    form.addEventListener('submit', function(e) {
+      if (!form.checkValidity()) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      form.classList.add('was-validated');
+    });
+  </script>
+
+</body>
+</html>
