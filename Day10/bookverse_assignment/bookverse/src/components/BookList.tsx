@@ -8,6 +8,7 @@ type Book = {
   title: string;
   author: string;
   price: number;
+  description?: string;
 };
 
 const authorDetails: Record<string, { bio: string; topBooks: string[] }> = {
@@ -34,7 +35,7 @@ const BookList: React.FC = () => {
   const [search, setSearch] = useState("");
   const [selectedAuthor, setSelectedAuthor] = useState<string | null>(null);
 
-  const searchRef = useRef<HTMLInputElement>(null);
+  const searchRef = useRef<HTMLInputElement | null>(null);
 
   const books: Book[] = [
     { id: 1, title: "The Great Gatsby", author: "F. Scott Fitzgerald", price: 9.99 },
@@ -51,52 +52,84 @@ const BookList: React.FC = () => {
     <div className="container py-4">
       <h1 className="mb-3 text-center">📚 BookVerse</h1>
 
-      {/* Uncontrolled input (using ref) */}
+      {/* Search input */}
       <div className="mb-3">
         <input
           ref={searchRef}
           type="text"
           className="form-control"
           placeholder="Search books..."
+          value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <button
-          className="btn btn-secondary mt-2"
-          onClick={() => searchRef.current?.focus()}
-        >
-          Focus Search Box
-        </button>
+        <div className="mt-2">
+          <button
+            className="btn btn-secondary me-2"
+            onClick={() => searchRef.current?.focus()}
+          >
+            Focus Search Box
+          </button>
+          <button
+            className="btn btn-outline-secondary"
+            onClick={() => {
+              setSearch("");
+              searchRef.current?.focus();
+            }}
+          >
+            Clear
+          </button>
+        </div>
       </div>
 
-      {/* Toggle view buttons */}
+      {/* View mode toggles */}
       <div className="mb-3 text-center">
-        <button className="btn btn-outline-primary me-2" onClick={() => setViewMode("grid")}>
+        <button
+          className={`btn me-2 ${viewMode === "grid" ? "btn-primary" : "btn-outline-primary"}`}
+          onClick={() => setViewMode("grid")}
+        >
           Grid View
         </button>
-        <button className="btn btn-outline-primary" onClick={() => setViewMode("list")}>
+        <button
+          className={`${viewMode === "list" ? "btn-primary" : "btn-outline-primary"}`}
+          onClick={() => setViewMode("list")}
+        >
           List View
         </button>
       </div>
 
-      {/* Books Grid/List */}
-      <div className={`row ${viewMode === "grid" ? "" : "flex-column"}`}>
+      {/* Books listing (explicit props - no spread) */}
+      <div className="row">
         {filteredBooks.map((book) => (
-          <BookCard
+          <div
             key={book.id}
-            {...book}
-            viewMode={viewMode}
-            onAuthorClick={setSelectedAuthor}
-          />
+            className={viewMode === "grid" ? "col-12 col-md-6 col-lg-3 mb-3" : "col-12 mb-3"}
+          >
+            <BookCard
+              id={book.id}
+              title={book.title}
+              author={book.author}
+              price={book.price}
+              viewMode={viewMode}
+              onAuthorClick={setSelectedAuthor}
+            />
+          </div>
         ))}
       </div>
 
-      {/* Author Info */}
-      {selectedAuthor && (
-        <AuthorInfo
-          name={selectedAuthor}
-          bio={authorDetails[selectedAuthor].bio}
-          topBooks={authorDetails[selectedAuthor].topBooks}
-        />
+      {/* Author details (composed) */}
+      {selectedAuthor && authorDetails[selectedAuthor] && (
+        <div className="mt-4">
+          <AuthorInfo
+            name={selectedAuthor}
+            bio={authorDetails[selectedAuthor].bio}
+            topBooks={authorDetails[selectedAuthor].topBooks}
+          />
+          <div className="mt-2">
+            <button className="btn btn-sm btn-outline-danger" onClick={() => setSelectedAuthor(null)}>
+              Close Author Info
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );

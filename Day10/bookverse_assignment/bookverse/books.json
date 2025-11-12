@@ -1,0 +1,32 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "price": 9.99,
+      "description": "A classic novel set in the Roaring Twenties."
+    },
+    {
+      "id": 2,
+      "title": "1984",
+      "author": "George Orwell",
+      "price": 8.5,
+      "description": "Dystopian novel about surveillance and authority."
+    },
+    {
+      "id": 3,
+      "title": "To Kill a Mockingbird",
+      "author": "Harper Lee",
+      "price": 10.0,
+      "description": "A story about racial injustice in the American South."
+    },
+    {
+      "id": 4,
+      "title": "The Hobbit",
+      "author": "J.R.R. Tolkien",
+      "price": 12.5,
+      "description": "A fantasy adventure that precedes The Lord of the Rings."
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "packages": [
+    {
+      "id": "1",
+      "name": "Paris Explorer",
+      "description": "...",
+      "price": 999,
+      "image": "http://localhost:3000/images/paris.jpg"
+    },
+    {
+      "id": "2",
+      "name": "Bali Getaway",
+      "description": "...",
+      "price": 799,
+      "image": "http://localhost:3000/images/bali.jpg"
+    },
+    {
+      "id": "3",
+      "name": "New York Adventure",
+      "description": "...",
+      "price": 899,
+      "image": "http://localhost:3000/images/newyork.jpg"
+    }
+  ],
+  "bookings": [
+    {
+      "id": "d445",
+      "fullName": "Deepak",
+      "email": "kushwahadeepak2508@gmail.com",
+      "packageId": "2",
+      "date": "2025-11-13",
+      "guests": 1,
+      "notes": ""
+    }
+  ]
+}
