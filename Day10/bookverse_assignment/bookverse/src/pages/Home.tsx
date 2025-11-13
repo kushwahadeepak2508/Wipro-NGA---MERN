@@ -1,47 +1,43 @@
 // src/pages/Home.tsx
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import BookCard from "../components/BookCard";
-import { withLoading } from "../components/withLoading";
-import RenderStatus from "../components/RenderStatus";
+import AddBookForm from "../components/AddBookForm";
+import { StoreContext } from "../flux/StoreContext";
+import { Book } from "../flux/BookStore";
 import { useNavigate } from "react-router-dom";
 
-type Book = {
-  id: number;
-  title: string;
-  author: string;
-  price: number;
-  description?: string;
-};
-
-const API = "http://localhost:4000/books";
-
-const HomeContent: React.FC = () => {
-  const [books, setBooks] = useState<Book[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+const HomePage: React.FC = () => {
+  const store = useContext(StoreContext);
+  const [books, setBooks] = useState<Book[]>(store.getAll());
   const navigate = useNavigate();
 
   useEffect(() => {
-    setLoading(true);
-    fetch(API)
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch");
-        return res.json();
-      })
-      .then((data: Book[]) => {
-        setBooks(data);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch books", err);
-      })
-      .finally(() => setLoading(false));
-  }, []);
+    // componentDidMount: subscribe to store
+    const unsubscribe = store.addChangeListener(() => {
+      setBooks(store.getAll());
+    });
+
+    // optional: log lifecycle for learning/demonstration
+    console.log("HomePage mounted: subscribed to BookStore");
+
+    // cleanup: componentWillUnmount
+    return () => {
+      unsubscribe();
+      console.log("HomePage unmounted: unsubscribed from BookStore");
+    };
+  }, [store]);
 
   return (
     <div>
-      <RenderStatus status={loading ? "Loading books..." : `Found ${books.length} books`}>
-        {({ status }) => <p>{status}</p>}
-      </RenderStatus>
+      <h2>Home — BookVerse</h2>
 
+      {/* Add form */}
+      <AddBookForm onAdded={(book) => {
+        // optional UI action after adding
+        console.log("Book added:", book);
+      }} />
+
+      {/* Book list */}
       <div>
         {books.map((b) => (
           <BookCard key={b.id} book={b} onView={(id: number) => navigate(`/book/${id}`)} />
@@ -51,5 +47,4 @@ const HomeContent: React.FC = () => {
   );
 };
 
-// Wrap the content with the HOC (the HOC expects a 'loading' prop when used)
-export default withLoading(HomeContent);
+export default HomePage;
