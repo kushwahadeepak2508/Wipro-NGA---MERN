@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<body>
+<h2>Register</h2>
+<form id="regForm">
+ <input name="name" placeholder="Name"/><br/>
+ <input name="email" placeholder="Email"/><br/>
+ <input name="password" type="password" placeholder="Password"/><br/>
+ <select name="role">
+   <option value="user">user</option>
+   <option value="admin">admin</option>
+ </select><br/>
+ <button>Submit</button>
+</form>
+<div id="result"></div>
+<script>
+const f=document.getElementById('regForm');
+f.onsubmit=async(e)=>{
+ e.preventDefault();
+ const body={
+  name:f.name.value,
+  email:f.email.value,
+  password:f.password.value,
+  role:f.role.value
+ };
+ const r=await fetch('/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+ const j=await r.json();
+ document.getElementById('result').textContent=JSON.stringify(j);
+};
+</script>
+</body>
+</html>

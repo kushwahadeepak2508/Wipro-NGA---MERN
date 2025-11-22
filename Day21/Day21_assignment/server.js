@@ -1,7 +1,7 @@
 // server.js
 const express = require('express');
 const path = require('path');
-// const morgan = require('morgan'); // optional for production
+const morgan = require('morgan'); // optional for production
 
 const app = express();
 const PORT = process.env.PORT || 4000;
@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 4000;
  */
 app.use((req, res, next) => {
   const timestamp = new Date().toISOString();
-  // console.log(`[${req.method}] ${req.originalUrl} at ${timestamp}`);
+  console.log(`[${req.method}] ${req.originalUrl} at ${timestamp}`);
   next();
 });
 
